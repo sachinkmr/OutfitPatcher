@@ -1,0 +1,136 @@
+{
+  "LeveledListPrefix": "_zzz_",
+  "OutfitPrefix": "_zzz_",
+  "OutfitSuffix": "OTFT",
+  "PatcherPrefix": "zzzzNPCArmor-",
+  "KeywordPrefix": "OPType",
+
+  "InvalidArmorsRegex": "Riekl|Dismember|Dummy|Horse|Mutant|Headless|Corpse|Fake|Template|Skin|Nake|Dummy|replica|skeleton|Havok|nude|Deca|temp",
+  "ValidArmorsRegex": "HumanSkin|SkinTight|XJKSkin|TemplateClothes|NoviceTemplate|Deathskin|Snake|templ",
+  "InvalidFactionRegex": "DLC2SeekerFaction|Wyrm|Dragon|Riekl|Creature|Spouse|Quest|Demo|Dummy|test|Dialogue|Ally|Friend|Crime|Allies|(MS[0-9])|Excluded|Skeleton|Decap|Falmer|temp",
+  "ValidFactionRegex": "GuardSon|Redguard|Dawnguard|FSGuard|GuardOrc|templ",
+  "InvalidNpcRegex": "temp|Riekl|corpse|dead|Dummy|Decoy|Preset|Skeleton|Decap",
+  "ValidNpcRegex": "Deadeye|templ",
+  "SluttyRegex": "slut|nude|nake|damage|expose|reveal|broke",
+  "ValidMaterial": "Guards",
+  "InvalidMaterial": "temp|Guard|Advance|IronBanded",
+
+
+  "Masters": [ "Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "Unofficial Skyrim Special Edition Patch.esp" ],
+
+  "ArmorTypeRegex": {
+    "Heavy": "Blades|Companions|Vacated|Guard|Companion|MageHeavy|Paladin|2H|Warrior|Blade|defen|Beast|2H|Tank|Melee|Heavy|Berserker|Feral|DA13Heavy|GuardSon|Knight|Marauder|Berserker|lalawench_outfit_heavy|OBIS_Feral::staff|Destruction|Conjuration|Restoration|Alteration|Illusion|Missile|Light|Cloth|Magic|Rose|Robe|JVD|Nubia|Digger|Archer|Assassin|caller|Wizard|Sorcer|Necro|Monk|Shamen|priest|Bow|Blocked",
+    "Light": "Barbarian|Vacated|Briarheart|Scout|Hunter|MageLight|Vamp|Nightingale|Digger|OneHanded|Trainer|1H|Warrior|Rogue|Thief|Thieve|Bow|Armor.*Cloth|Cloth.*Armor|Armor|Light|Butcher|Missle|Missile|Archer|Assassin|DA13Light|GuardSons|lalawench_outfit_light|Range|Spellsword::defen|staff|Destruction|Conjuration|Restoration|Alteration|Illusion|Berserker|Knight|caller|Cloth|Robe|JVD|Nubia|Feral|Wizard|Sorcer|Necro|Monk|Beast|Shamen|priest",
+    "Wizard": "Necromancer|Greybeard|Destruction|Conjuration|Alteration|Illusion|Restoration|Briarheart|Monk|PenitusOculatus|Druid|Vaermina|Witch|Hermit|Mage|Shaman|Shamen|saint|cult|Mystic|College|staff|Vaermin|Nocturnal|Warlock|Destruc|Conjur|Restor|Alter|Illus|Monk|Necro|Sorcer|Wizard|Mage|Robe|Magic|JVD|Rose|caller|DA13Robe|priest::DragonPriest|defen|Archer|Assassin|Berserker|Missile|Digger|Heavy|Light|Missle|Feral|Knight|Beast|Bow|Miraak|cicero|Golden|poor",
+    "Cloth": "Farmer|Travel|Poor|WeddingDress|BarKeeper|Farm|Wench|Wheat|Servant|Captured|Cook|Bard|Maid|Steward|Prison|Dock|Sailor|Inn|Food|Merchant|Alchem|Vendor|Shop|Trader|Service|apothec|Mine|Slave|Worker|Alchemist|Child|Lumberjack|Citizen|Pilgrim|Prisoner|Miner|BarKeep|BlackSmith|Farm|Mourn|Chef|Beggar|Wedding|Tavern|Fine|Noble|Quilt|Dress|Coat|Fair|Suit|Fashion|jarl|Cloth|Vendor|wench_Clothes::Archer|thief|knight|warrior|necro|mage|Assassin|Miraak|cicero|StewardOwner|LuxurySuite"
+  },
+
+  "OutfitRegex": {
+    // Armor Material
+    "MaterialBonemold": "Bonemold|BonemoldAllOutfit::cloth::Heavy",
+    "MaterialHide": "Hide|ArmorFur|(Hide|ArmorFur)AllOutfit::Hideout|cloth::Light",
+    "MaterialScaled": "Scaled|ScaledAllOutfit::cloth::Light",
+    "MaterialStudded": "Studded|StuddedAllOutfit::Imperial|Stormcloaks|cloth::Light",
+    "MaterialLeather": "Leather|LeatherAllOutfit::Netch|cloth::Light",
+    "MaterialLeatherNetch": "Netch.*Leather|(Netch.*Leather)AllOutfit::cloth::Light",
+    "MaterialIron": "Iron|IronBanded|(Iron|IronBanded)AllOutfit::cloth::Heavy",
+    "MaterialSteel": "Steel|SteelAllOutfit::SteelPlate|Steel Plate::Heavy",
+    "MaterialSteelPlate": "SteelPlate|SteelPlateAllOutfit::cloth::Heavy",
+    "MaterialNordic": "Nordic|AncientNord|(Nordic|AncientNord)AllOutfit::cloth::Heavy",
+    "MaterialElven": "Elven|Gilded|(Elven|Gilded)AllOutfit::cloth::Light",
+    "MaterialOrcish": "Orcish|OrcStronghold|(Orcish|OrcStronghold)AllOutfit::cloth::Heavy",
+    "MaterialGlass": "Glass|GlassAllOutfit::cloth::Light",
+    "MaterialEbony": "Ebony|EbonyAllOutfit::cloth::Heavy",
+    "MaterialStalhrim": "Stalhrim|StalhrimAllOutfit::cloth::Heavy|Light",
+    "MaterialChitin": "Chitin|(Chitin|ChitinLight)AllOutfit::cloth::Light",
+    "MaterialDwarven": "Dwarven|DwarvenAllOutfit::cloth::Heavy",
+    "MaterialDragonplate": "Dragonplate|DragonplateAllOutfit::cloth::Heavy",
+    "MaterialDragonscale": "Dragonscale|DragonscaleAllOutfit::cloth::Heavy",
+    "MaterialDragonbone": "Dragonbone|DragonboneAllOutfit::cloth::Heavy",
+
+    //Guards
+    "GuardsFalkreath": "(?=.*(Soldier|Guard).*)(?=.*Falkreath.*)::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsHjaalmarch": "(?=.*(Soldier|Guard).*)(?=.*Hjaalmarch.*)::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsReach": "(?=.*(Soldier|Guard).*)(?=.*Reach.*)::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsPale": "(?=.*(Soldier|Guard).*)(?=.*Pale.*)::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsRift": "(?=.*(Soldier|Guard).*)(?=.*Rift.*)::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsHaafingar": "Haafingar.*(Soldier|Guard).*|.*(Soldier|Guard).*Haafingar|Haafingar::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsWhiterun": "(?=.*(Soldier|Guard).*)(?=.*Whiterun.*)|GuardFactionWhiterun|MQ104SonsFaction::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsEastmarch": "(?=.*(Soldier|Guard).*)(?=.*Eastmarch.*)::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsWinterhold": "(?=.*(Soldier|Guard).*)(?=.*Winterhold.*)::NotGuard|Draugr|Bodyguard::Heavy|Light",
+    "GuardsImperial": "(?=.*(Soldier|Guard).*)(?=.*Imperial.*)::NotGuard|Draugr|Prisoner|captured|Bodyguard::Heavy|Light",
+    "GuardsStormcloak": "(?=.*(Soldier|Guard).*)(?=.*Stormcloak.*)::NotGuard|Draugr|Prisoner|captured|Bodyguard::Heavy|Light",
+    "GuardsWindhelm": "(?=.*(Soldier|Guard).*)(?=.*Windhelm.*)::NotGuard|Draugr::Heavy|Light",
+
+    // Races
+    "RaceDunmer": "DunmerRace|Dunmer|DarkElf|Dark Elf::Draugr",
+    "RaceAltmer": "AltmerRace|Altmer|HighElf|High Elf::Draugr",
+    "RaceBosmer": "BosmerRace|Bosmer|WoodElf|Wood Elf::Draugr",
+    "RaceFalmer": "FalmerRace|(Ice|snow)Elf|(Ice|snow) Elf::Draugr",
+    "RaceNord": "NordRace::Draugr",
+    "RaceBreton": "BretonRace|Breton::Draugr",
+    "RaceOrc": "Orcish|OrcStronghold|(Orcish|OrcStronghold)AllOutfit|Orc|GuardOrc|OrcRace|Orsimer|Marauder::OrcFriend|lorCl|morC|ArmorC|Sorcer|Draugr",
+    "RaceVampire": "VampireRace|Vamp|crimson|VampireFaction|VampireRace::Draugr",
+    "RaceArgonian": "ArgonianRace|Argonian::Draugr",
+    "RaceKhajiit": "Khajiit::Draugr",
+    "RaceImperial": "Imperial|ImperialRace::Prisoner|captured|Draugr",
+    "RaceRedguard": "Redguard|Alik'r|Alikr::SomeNONmachingStr::Heavy|Light|Wizard|Cloth",
+    "RaceDaedra": "Daedric|Dremora|Daedra::ConjureDremora",
+
+    // Mixed Armors
+    "Falmer": "Falmer|FalmerAllOutfit::cloth::Heavy",
+    "Penitus": "Penitus|PenitusAllOutfit::cloth::Heavy",
+    "Dawnguard": "Dawnguard|DawnguardAllOutfit::cloth::Heavy",
+    "Thalmor": "Thalmor::Prisoner|captured|Torturer",
+    "Bandit": "Bandit|OBIS::Prisoner|captured",
+    "Forsworn": "Forsworn|Forsw|Reachmen::SomeNONmachingStr::",
+    "Stormcloak": "Stormcloak|SonsOfSkyrim|(Guard|Soldier)Sons::Draugr|Prisoner|captured",
+    "Vigilant": "vigilant|Stendarr::SomeNONmachingStr::Heavy|Light|Wizard",
+    "Warrior": "Barbarian|Bodyguard|Berserker|Warrior|Combat|Spellsword|Melee|OneHanded|1H|1Hand|AncientNord|Mercenary|Patrol|Merc::Merchant|Imperial|Stormcloak|Mage|Thalmor|Redguard|Falmer|Dremora|Prisoner|Wizard|1(Husky|Hat|Hood|Helmet|House)|Mercer",
+
+    //Clothes
+    "Traveller": "Travel|Wander|Journey|Adventu|Patron::Falmer",
+    "Blacksmith": "Blacksmith|Smithing|Smith::Armor|Enchant",
+    "Merchant": "Tailor|Jeweler|Speechcraft|Seller|doctor|Surgeon|Merchant|Alchem|Vendor|Shop|Trade|apothec::Blacksmith|CustomHome|Spouse|VendorItem|VendorNoSale|guard",
+    "Miner": "Mine|Worker::Eminent::",
+    "WeddingDress": "Wedding::SomeNONmachingStr::Cloth",
+    "Farmer": "Farmer|Farm|Wheat|Work|Lumber::Armor|clockwork",
+    "BarKeeper": "Barkeep|Maid|Innkeeper|Inn keeper|food|server|chef|Cook|Bar Keep|bar maid|Tavern::Armor|bandit|forsworn|stendarr|armor|captured|light|heavy|nocturn|Vamp|Prisoner|follo",
+    "Jarl": "Jarl::Servent|Steward::",
+    "Sailor": "Fisherman|Dock|Sailor|ship|Pirate::Ships|Worshipper|Relationship|Ownership",
+    "Prisoner": "Capture|Slave|Prison|CaptiveFaction|Rags|Captive::SomeNONmachingStr::",
+    "Citizen": "MiddleClass|FurCloth|CommonCloth|pilgrim|Researcher|Steward|Bard|Noble|Fine|Quilt|Dress|Coat|Fair|Suite|Fashion|Wiseman|Citizen::Maid|Necro|Blade|Companion|Thief|Thalmor|Jarl|Sailor|Mage|Spouse|Assassin|Warrior|Elven|Wedding|Werewolf|LuxurySuite|Farm|Merchant|Alchem|Vendor|Shop|Trader|Service|apothec|food|server|barkeep|barmaid|chef|Cook|Skaal|Village|Jarl|Zombie|Jester|Child|Knight",
+    "Poor": "Mourner|Servent|Whore|Refugee|Beggar|Poor|Servant::Mage|robe::",
+
+    //Light Armor
+    "Thief": "Blackguard|Thief|Pickpocket|Speechcraft|Steal|Sneak|Lockpick|Thiev|ThievesGuild|Rogue::TrainerSpeech",
+    "Archer": "Archer|Ranger|Sniper|Crossbowman|Marksman|Missile|Bow|Scout::searcher::",
+    "Assassin": "Operative|Bladebinder|Assassin|NightBlade|MoragTong|DarkBrotherhood|DBArmor|DBRobe|DBAncient|DBCloth::DBM|Elf|friends|Brothers::",
+    "Hunter": "Hunter|Hunt::shadow|daedra",
+    "Nightingale": "Nightingale::SomeNONmachingStr::",
+    "Skaal": "Skaal::SomeNONmachingStr::Heavy|Light|Wizard|Cloth",
+
+    //Heavy Armor
+    "Companions": "Companion::SomeNONmachingStr::",
+    "Blades": "Blade::NightBlade|Witchblade",
+    "Knight": "Beserk|TwoHanded|Knight|Block|2H|Tank::Blocker|2(Husky|Hat|Hood|Helmet|House)|enc",
+
+    //Mages
+    "Greybeard": "Greybeard::SomeNONmachingStr",
+    "Mage": "FlameThrower|Necro|Nocturnal|Witch|Destruction|Conjuration|Conjure|Enchant|Court|CourtWizard|CollegeofWinterhold|College|CollegeWizard|Magic|Saint|Vaermina|Monk|Heal|Priest|Worship|Hermit|Restoration|Mystic|Warlock|Mage|Wizard|Vaermin|Druid|Alteration|Illusion|Sorcer|Druid|PenitusOculatus|Robe|staff::Quilt|Tunic|Citizen|Dremora|DragonPriest|Falmer|Greybeard|Golden|Spawn|BardsCollege|Marriage|armor.*of|Thalmor|College|Court|WitchHunter|Greybeard|Race|Jarl|Noble|Imperial",
+
+    // Custom
+    "Housecarl": "Housecarl|Thane|PlayerFollowerFaction::ThanePlate",
+    "Child": "Child|Kid::Kidd",
+    "SleepOutfit": "Bath|Swim|Sleep|Underware|Lingerie::CombatHate|Inn"
+
+    //"Necromancer": "FlameThrower|Necro|Nocturnal|Witch|Destruction|Conjuration|Conjure::College|Court|WitchHunter|Greybeard|Race|armor.*of|Thalmor",
+    //"Imperial": "Imperial|ImperialRace::Draugr|Prisoner|captured|guard|Soldier",
+    //"WenchTavern": "Tavern|wench::bandit|forsworn|stendarr|armor|captured|light|heavy|nocturn|Vamp|Prisoner",
+    //"Dawnguard": "Dawnguard::SomeNONmachingStr::",
+    //"DarkBrotherhood": "DarkBrotherhood|DBArmor|DBRobe|DBAncient|Shroud::DBM|Elf|friends|Brothers",
+    //"Servent": "Servent|Maid::Armor",
+    //"Orcs": "Orcish|Orc|GuardOrc|OrcStronghold|OrcRace::OrcFriend|lorCl|morC|ArmorC|Sorcer::Heavy|Light",
+    //"Vampires": "Vamp::SomeNONmachingStr::Heavy|Light|Wizard",
+  }
+}
