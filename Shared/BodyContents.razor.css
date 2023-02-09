@@ -1,0 +1,26 @@
+form .row {
+    margin-bottom: 16px;
+}
+
+.spinner-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    width: 100px;
+    height: 100px;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    border-top-color: red;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+}

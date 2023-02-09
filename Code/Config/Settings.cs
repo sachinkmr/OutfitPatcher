@@ -50,10 +50,7 @@ namespace Code.OutfitPatcher.Config
         public static string LogsDirectory;
 
         static Settings() {
-            // Init logger
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-
+            
             EXE_LOC = Directory.GetParent(Assembly.GetAssembly(typeof(Settings)).Location).FullName;
             string ConfigFile = Path.Combine(EXE_LOC, "data", "config", "PatcherSettings.json");
 
