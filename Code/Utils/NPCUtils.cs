@@ -58,8 +58,8 @@ namespace Code.OutfitPatcher.Utils
         }
 
         public static bool IsChild(INpcGetter npc) {
-            return IsChild(SynPoint.Settings.Cache.Resolve<IRaceGetter>(npc.Race.FormKey))
-                || IsChild(SynPoint.Settings.Cache.Resolve<IClassGetter>(npc.Class.FormKey).EditorID);
+            return IsChild(SynPatch.Settings.Cache.Resolve<IRaceGetter>(npc.Race.FormKey))
+                || IsChild(SynPatch.Settings.Cache.Resolve<IClassGetter>(npc.Class.FormKey).EditorID);
         }
 
         public static bool IsChild(IRaceGetter race)
@@ -73,14 +73,14 @@ namespace Code.OutfitPatcher.Utils
         }
 
         public static bool IsValidNPC(INpcGetter npc) {
-            return !SynPoint.Settings.User.NPCToSkip.Contains(npc.FormKey.ToLinkGetter<INpcGetter>())
+            return !SynPatch.Settings.User.NPCToSkip.Contains(npc.FormKey.ToLinkGetter<INpcGetter>())
                 && IsValidActorType(npc)
                 && IsValidNPCName(npc.EditorID);
         }
 
         public static bool IsValidActorType(INpcGetter npc)
         {
-            return IsValidActorType(npc, SynPoint.Settings.Cache);
+            return IsValidActorType(npc, SynPatch.Settings.Cache);
         }
 
         public static bool IsValidActorType(INpcGetter npc, ILinkCache cache)

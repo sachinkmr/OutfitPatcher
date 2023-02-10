@@ -15,7 +15,7 @@ namespace Code.OutfitPatcher.Utils
 
         public static LeveledItem CreateLeveledList(ISkyrimMod Patch, IEnumerable<IItemGetter> items, string editorID, short level, LeveledItem.Flag flag)
         {
-            if (SynPoint.Settings.Cache.TryResolve<ILeveledItemGetter>(editorID, out var ll))
+            if (SynPatch.Settings.Cache.TryResolve<ILeveledItemGetter>(editorID, out var ll))
             {
                 editorID += "_dup";
             }
@@ -30,7 +30,7 @@ namespace Code.OutfitPatcher.Utils
 
         public static LeveledNpc CreateLeveledList(ISkyrimMod PatchMod, IEnumerable<ILeveledNpcGetter> items, string editorID, short level, LeveledNpc.Flag flag)
         {
-            if (SynPoint.Settings.Cache.TryResolve<ILeveledNpcGetter>(editorID, out var ll))
+            if (SynPatch.Settings.Cache.TryResolve<ILeveledNpcGetter>(editorID, out var ll))
             {
                 editorID += "_dup";
             }
@@ -46,7 +46,7 @@ namespace Code.OutfitPatcher.Utils
 
         public static LeveledItem CreateLeveledList(ISkyrimMod PatchMod, IEnumerable<IFormLink<IItemGetter>> items, string editorID, short level, LeveledItem.Flag flag)
         {
-            if (SynPoint.Settings.Cache.TryResolve<ILeveledItemGetter>(editorID, out var ll))
+            if (SynPatch.Settings.Cache.TryResolve<ILeveledItemGetter>(editorID, out var ll))
             {
                 editorID += "_dup";
             }
@@ -88,7 +88,7 @@ namespace Code.OutfitPatcher.Utils
             {
                 if (hasMultiItems && i % 250 == 0)
                 {
-                    sLL = CreateLeveledList(patch, new List<IItemGetter>(), lvli.EditorID + (++j), 1, SynPoint.Settings.LeveledListFlag);
+                    sLL = CreateLeveledList(patch, new List<IItemGetter>(), lvli.EditorID + (++j), 1, SynPatch.Settings.LeveledListFlag);
                     AddItemToLeveledList(lvli, sLL, 1);
                 }
                 AddItemToLeveledList(sLL, items.ElementAtOrDefault(i), 1);
@@ -105,7 +105,7 @@ namespace Code.OutfitPatcher.Utils
             {
                 if (hasMultiItems && i % 250 == 0)
                 {
-                    sLL = CreateLeveledList(patch, new List<ILeveledNpcGetter>(), lvli.EditorID + (++j), 1, SynPoint.Settings.LeveledNpcFlag);
+                    sLL = CreateLeveledList(patch, new List<ILeveledNpcGetter>(), lvli.EditorID + (++j), 1, SynPatch.Settings.LeveledNpcFlag);
                     AddItemToLeveledList(lvli, sLL, 1);
                 }
                 AddItemToLeveledList(sLL, items.ElementAtOrDefault(i), 1);
@@ -124,7 +124,7 @@ namespace Code.OutfitPatcher.Utils
                 patch = FileUtils.GetIncrementedMod(patch);
                 if (hasMultiItems && i % 250 == 0)
                 {
-                    sLL = CreateLeveledList(patch, new List<IItemGetter>(), lvli.EditorID + (++j), 1, SynPoint.Settings.LeveledListFlag);
+                    sLL = CreateLeveledList(patch, new List<IItemGetter>(), lvli.EditorID + (++j), 1, SynPatch.Settings.LeveledListFlag);
                     AddItemToLeveledList(lvli, sLL, 1);
                 }
                 AddItemToLeveledList(sLL, items.ElementAtOrDefault(i), 1);
@@ -206,7 +206,7 @@ namespace Code.OutfitPatcher.Utils
                 {
                     if (i % 250 == 0)
                     {
-                        sLL = CreateLeveledList(patch, new List<ILeveledNpcGetter>(), lvli.EditorID + i, 1, SynPoint.Settings.LeveledNpcFlag);
+                        sLL = CreateLeveledList(patch, new List<ILeveledNpcGetter>(), lvli.EditorID + i, 1, SynPatch.Settings.LeveledNpcFlag);
                         AddItemToLeveledList(lvli, sLL, 1);
                     }
                     sLL.Entries.Add(items.ElementAtOrDefault(i));
@@ -237,7 +237,7 @@ namespace Code.OutfitPatcher.Utils
                 if (!LLs.Contains(i.FormKey))
                 {
                     LLs.Add(i.FormKey);
-                    if (SynPoint.Settings.Cache.TryResolve<ILeveledItem>(i.FormKey, out var itm))
+                    if (SynPatch.Settings.Cache.TryResolve<ILeveledItem>(i.FormKey, out var itm))
                     {
                         LLs.Add(itm.FormKey);
                         GetSubLeveledLists(itm, LLs);

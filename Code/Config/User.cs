@@ -6,13 +6,19 @@ using Newtonsoft.Json.Linq;
 using log4net;
 using System.ComponentModel.DataAnnotations;
 using Mutagen.Bethesda.Skyrim;
-
+using Mutagen.Bethesda.Environments;
+using Mutagen.Bethesda.Plugins.Cache;
+using Mutagen.Bethesda;
+using System;
 
 namespace Code.OutfitPatcher.Config
 {
-    public class User 
+    public class User: IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(User));
+
+        public bool IsLoaded { get; set; } = false;
+        
         [MaintainOrder]
         [JsonDiskName("OutfitDistributionPercentage")]
         [SettingName("Distribute Outfits By: ")]
@@ -97,13 +103,19 @@ namespace Code.OutfitPatcher.Config
         [JsonDiskName("ArmorMods")]
         public Dictionary<string, List<string>>? ArmorMods = new();
 
+
+        internal static IGameEnvironment<ISkyrimMod, ISkyrimModGetter> PatcherEnv = null;
+
         public User()
         {
             string exeLoc = Directory.GetParent(System.Reflection.Assembly.GetAssembly(typeof(User)).Location).FullName;
-            string ConfigFile = Path.Combine(exeLoc, "data", "config", "UserSettings.json");
+            string ConfigFile = Path.Combine(exeLoc, "Code", "data", "config", "UserSettings.json");
             JObject data = JObject.Parse(File.ReadAllText(ConfigFile));
 
-            var order = SynPoint.PatcherEnv.LoadOrder;
+            PatcherEnv  = GameEnvironment.Typical.Skyrim(
+                SkyrimRelease.SkyrimSE, LinkCachePreferences.Default);
+
+            var order = PatcherEnv.LoadOrder;
 
             CreateBashPatch = bool.Parse(data["CreateBashPatch"].ToString());
             SkipSluttyOutfit = bool.Parse(data["SkipSluttyOutfit"].ToString());
@@ -111,7 +123,6 @@ namespace Code.OutfitPatcher.Config
             ResolveOutfitConflicts = bool.Parse(data["ResolveOutfitConflicts"].ToString());
             SkipGuardDistribution = bool.Parse(data["SkipGuardDistribution"].ToString());
             DistributeWeapons = bool.Parse(data["DistributeWeapons"].ToString());
-
             OutfitDistributionPercentage = int.Parse(data["OutfitDistributionPercentage"].ToString());
 
             // Mods to Skip
@@ -148,7 +159,7 @@ namespace Code.OutfitPatcher.Config
                 var mods = data["ArmorMods"].ToObject<Dictionary<string, List<string>>>();
                 foreach (var pair in mods)
                 {
-                    if (ModKey.TryFromNameAndExtension(pair.Key, out var modKey) && SynPoint.PatcherEnv.LoadOrder.ContainsKey(modKey))
+                    if (ModKey.TryFromNameAndExtension(pair.Key, out var modKey) && PatcherEnv.LoadOrder.ContainsKey(modKey))
                     {
                         var item = new ModCategory(modKey, pair.Value);
                         PatchableArmorMods.Add(item);
@@ -162,5 +173,9 @@ namespace Code.OutfitPatcher.Config
             });
         }
 
+        public void Dispose()
+        {
+            PatcherEnv.Dispose();
+        }
     }
 }

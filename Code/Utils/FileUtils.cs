@@ -34,7 +34,7 @@ namespace Code.OutfitPatcher.Utils
             FormIDUniqueness = FormIDUniquenessOption.Iterate,
             NextFormID = NextFormIDOption.Iterate,
             CleanNulls = true,
-            MastersListOrdering = MastersListOrderingByLoadOrder.Factory(SynPoint.Settings.State.LoadOrder.ListedOrder.Select(x=>x.ModKey))
+            MastersListOrdering = MastersListOrderingByLoadOrder.Factory(SynPatch.Settings.State.LoadOrder.ListedOrder.Select(x=>x.ModKey))
         };
 
         public static ISkyrimMod GetIncrementedMod(ISkyrimMod mod, bool forceCreate=false)
@@ -52,8 +52,8 @@ namespace Code.OutfitPatcher.Utils
             {
                 name = mod.ModKey.Name + " 1";
             }
-            SynPoint.Patch = GetOrAddPatch(name);
-            return SynPoint.Patch;
+            SynPatch.Patch = GetOrAddPatch(name);
+            return SynPatch.Patch;
         }
 
         public static List<string> GetMasters(ISkyrimModGetter mod) {
@@ -107,14 +107,14 @@ namespace Code.OutfitPatcher.Utils
             espName = espName.StartsWith(Settings.Patcher.PatcherPrefix) ? espName : Settings.Patcher.PatcherPrefix + espName;
             ModKey modKey = ModKey.FromNameAndExtension(espName);
 
-            if (SynPoint.Settings.State.LoadOrder.ContainsKey(modKey))
-                return SynPoint.Settings.Patches.Find(x=>x.ModKey.Equals(modKey));
+            if (SynPatch.Settings.State.LoadOrder.ContainsKey(modKey))
+                return SynPatch.Settings.Patches.Find(x=>x.ModKey.Equals(modKey));
 
             ISkyrimMod patch = new SkyrimMod(modKey, SkyrimRelease.SkyrimSE);
-            SynPoint.Settings.Patches.Add(patch);
+            SynPatch.Settings.Patches.Add(patch);
 
             var listing = new ModListing<ISkyrimModGetter>(patch, true);
-            SynPoint.Settings.State.LoadOrder.Add(listing);
+            SynPatch.Settings.State.LoadOrder.Add(listing);
             return patch;
         }
 

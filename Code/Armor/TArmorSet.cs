@@ -41,7 +41,7 @@ namespace Code.OutfitPatcher.Armor
         }
 
         public static TArmorSet GetArmorSet(ILeveledItemGetter LL, string material) {
-            var armors = LeveledListUtils.GetArmorList(SynPoint.Settings.Cache, LL)
+            var armors = LeveledListUtils.GetArmorList(SynPatch.Settings.Cache, LL)
             .Select(x => new TArmor(x, material)).ToHashSet();
             var body = armors.Where(x => x.IsBody()).First();
 

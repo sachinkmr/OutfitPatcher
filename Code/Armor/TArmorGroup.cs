@@ -69,7 +69,7 @@ namespace Code.OutfitPatcher.Armor
 
         public ISkyrimMod CreateOutfits(ISkyrimMod Patch)
         {
-            var cache = SynPoint.Settings.State.LoadOrder.ToMutableLinkCache();
+            var cache = SynPatch.Settings.State.LoadOrder.ToMutableLinkCache();
             var gArmors = Armorsets.GroupBy(x => x.Gender).ToDictionary(x => x.Key, x => x.Select(a => a));
             foreach (var g in gArmors.Keys)
             {
@@ -79,10 +79,10 @@ namespace Code.OutfitPatcher.Armor
                 var set = gArmors[g].Select(a => a.LLFormKey.ToLink<IItemGetter>()).ToList();
                 
                 Outfit newOutfit = null;
-                if (SynPoint.Settings.Cache.TryResolve<IOutfitGetter>(OutfitUtils.GetOutfitName(eid), out var ot))
+                if (SynPatch.Settings.Cache.TryResolve<IOutfitGetter>(OutfitUtils.GetOutfitName(eid), out var ot))
                 {
                     newOutfit = Patch.Outfits.GetOrAddAsOverride(ot);
-                    LeveledItem mLL = LeveledListUtils.CreateLeveledList(Patch, set, "mLL_" + eid, 1, SynPoint.Settings.LeveledListFlag);
+                    LeveledItem mLL = LeveledListUtils.CreateLeveledList(Patch, set, "mLL_" + eid, 1, SynPatch.Settings.LeveledListFlag);
                     newOutfit.Items = new(mLL.ToLink().AsEnumerable());
                 }
                 else {

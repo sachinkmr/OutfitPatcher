@@ -36,7 +36,7 @@ namespace Code.OutfitPatcher.Utils
         
         internal static Outfit CreateOutfit(ISkyrimMod? PatchedMod, string eid, IEnumerable<IFormLink<IItemGetter>> set)
         {
-            LeveledItem mLL = LeveledListUtils.CreateLeveledList(PatchedMod, set, "mLL_" + eid, 1, SynPoint.Settings.LeveledListFlag);
+            LeveledItem mLL = LeveledListUtils.CreateLeveledList(PatchedMod, set, "mLL_" + eid, 1, SynPatch.Settings.LeveledListFlag);
             Outfit newOutfit = PatchedMod.Outfits.AddNew(GetOutfitName(eid));
             newOutfit.Items = new(mLL.ToLink().AsEnumerable());
             return newOutfit;

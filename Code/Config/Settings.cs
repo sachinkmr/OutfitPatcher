@@ -52,7 +52,7 @@ namespace Code.OutfitPatcher.Config
         static Settings() {
             
             EXE_LOC = Directory.GetParent(Assembly.GetAssembly(typeof(Settings)).Location).FullName;
-            string ConfigFile = Path.Combine(EXE_LOC, "data", "config", "PatcherSettings.json");
+            string ConfigFile = Path.Combine(EXE_LOC, "Code", "data", "config", "PatcherSettings.json");
 
             Console.WriteLine("\n\n**********************************");
             Console.WriteLine("Starting Outfit Patcher...");

@@ -62,7 +62,7 @@ namespace Code.OutfitPatcher.Utils
         {
             List<string> results = new();
             string mRegex = @"(?:Armor|Weap(?:on))Materi[ae]l(\w+)";
-            ILinkCache cache = SynPoint.Settings.Cache;
+            ILinkCache cache = SynPatch.Settings.Cache;
             name = name.IsNullOrEmpty() ? GetFullName(item) : name;
             item.Keywords.EmptyIfNull().Where(x => !x.IsNull)
                 .Select(x => cache.Resolve<IKeywordGetter>(x.FormKey).EditorID)
@@ -112,7 +112,7 @@ namespace Code.OutfitPatcher.Utils
         public static bool IsValidArmor(IArmorGetter armor)
         {
             var name = GetFullName(armor);
-            bool isSlutty = SynPoint.Settings.User.SkipSluttyOutfit && Regex.IsMatch(name, Settings.Patcher.SluttyRegex, RegexOptions.IgnoreCase);
+            bool isSlutty = SynPatch.Settings.User.SkipSluttyOutfit && Regex.IsMatch(name, Settings.Patcher.SluttyRegex, RegexOptions.IgnoreCase);
             return !isSlutty && (Regex.IsMatch(name, Settings.Patcher.ValidArmorsRegex, RegexOptions.IgnoreCase)
                     || !Regex.IsMatch(name, Settings.Patcher.InvalidArmorsRegex, RegexOptions.IgnoreCase));
         }
@@ -133,7 +133,7 @@ namespace Code.OutfitPatcher.Utils
         public static TGender GetGender(IArmorGetter armor)
         {
             if (armor.Armature != null && armor.Armature.Count > 0 
-                && SynPoint.Settings.Cache.TryResolve<IArmorAddonGetter>(armor.Armature.FirstOrDefault().FormKey, out var addon))
+                && SynPatch.Settings.Cache.TryResolve<IArmorAddonGetter>(armor.Armature.FirstOrDefault().FormKey, out var addon))
             {
                 if (addon.WorldModel == null) return TGender.Unknown;
                 if (addon.WorldModel.Male != null && addon.WorldModel.Female != null)
@@ -160,7 +160,7 @@ namespace Code.OutfitPatcher.Utils
 
         public static bool IsUpperArmor(IArmorGetter x)
         {
-            var addons = x.Armature.EmptyIfNull().Select(x => x.Resolve(SynPoint.Settings.Cache));
+            var addons = x.Armature.EmptyIfNull().Select(x => x.Resolve(SynPatch.Settings.Cache));
             return addons.EmptyIfNull().Any(addon => addon.BodyTemplate.FirstPersonFlags.HasFlag(BipedObjectFlag.Body)
                 || addon.BodyTemplate.FirstPersonFlags.HasFlag((BipedObjectFlag)TBodySlot.Chest)
                 || addon.BodyTemplate.FirstPersonFlags.HasFlag((BipedObjectFlag)TBodySlot.ChestUnder));
@@ -191,7 +191,7 @@ namespace Code.OutfitPatcher.Utils
 
         public static bool IsLowerArmor(IArmorGetter x)
         {
-            var addons = x.Armature.EmptyIfNull().Select(x => x.Resolve(SynPoint.Settings.Cache));
+            var addons = x.Armature.EmptyIfNull().Select(x => x.Resolve(SynPatch.Settings.Cache));
             return addons.EmptyIfNull().Any(addon => addon.BodyTemplate.FirstPersonFlags.HasFlag((BipedObjectFlag)TBodySlot.Pelvis)
             || addon.BodyTemplate.FirstPersonFlags.HasFlag((BipedObjectFlag)TBodySlot.PelvisUnder));
         }

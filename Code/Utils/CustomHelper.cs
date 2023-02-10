@@ -37,7 +37,7 @@ namespace Code.OutfitPatcher.Utils
             //ModKey modKey = ModKey.FromNameAndExtension(espName);
             //var patch = Program.Settings.State.LoadOrder[modKey].Mod;
             var patch = FileUtils.GetOrAddPatch(patchName);
-            var eff = SynPoint.Settings.State.LoadOrder.PriorityOrder.ObjectEffect().WinningOverrides()
+            var eff = SynPatch.Settings.State.LoadOrder.PriorityOrder.ObjectEffect().WinningOverrides()
                 .Where(x => x.FormKey.ToString().Contains("gifts of akatosh.esp")
                         && x.Name.ToString().Contains("Akatosh"));
 

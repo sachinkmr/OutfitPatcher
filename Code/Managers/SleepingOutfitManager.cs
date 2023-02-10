@@ -31,7 +31,7 @@ namespace Code.OutfitPatcher.Managers
             if (!hasSleepMod) return patch;
 
             Patch = FileUtils.GetIncrementedMod(patch);
-            if (!SynPoint.Settings.User.SleepingOutfit.Any())
+            if (!SynPatch.Settings.User.SleepingOutfit.Any())
             {
                 Console.WriteLine("No mods for sleeping outfits found, Skipping...");
                 return Patch;
@@ -40,7 +40,7 @@ namespace Code.OutfitPatcher.Managers
             Console.WriteLine("\n\nCreating matching armor sets for sleeping outfit mods...");
             var armorsets = new List<IArmorGetter>();
             foreach (var mod in State.LoadOrder.PriorityOrder
-                        .Where(x => SynPoint.Settings.User.SleepingOutfit.Contains(x.ModKey.FileName)
+                        .Where(x => SynPatch.Settings.User.SleepingOutfit.Contains(x.ModKey.FileName)
                             && x.Mod.Armors.Count > 0)
                         .Select(x => x.Mod))
             {

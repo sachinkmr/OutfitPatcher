@@ -58,9 +58,9 @@ namespace Code.OutfitPatcher.Managers
             Console.WriteLine("Merging previously created outfits...");
             var cache = State.LoadOrder.ToMutableLinkCache();
             var outfits = State.LoadOrder.PriorityOrder
-                .Where(l => !SynPoint.Settings.Patches.Contains(l.Mod))
+                .Where(l => !SynPatch.Settings.Patches.Contains(l.Mod))
                 .WinningOverrides<IOutfitGetter>()
-                .Where(o => !SynPoint.Settings.User.ModsToSkip.Contains(o.FormKey.ModKey)
+                .Where(o => !SynPatch.Settings.User.ModsToSkip.Contains(o.FormKey.ModKey)
                     && o.EditorID.EndsWith(Settings.Patcher.OutfitSuffix)
                     && o.EditorID.StartsWith(Settings.Patcher.OutfitPrefix));
 
@@ -91,7 +91,7 @@ namespace Code.OutfitPatcher.Managers
         {
             Console.WriteLine("Creating matching armor sets for armor mods...");
             var modlists = State.LoadOrder.PriorityOrder
-                .Where(x => (SynPoint.Settings.User.ArmorMods.ContainsKey(x.ModKey.FileName)
+                .Where(x => (SynPatch.Settings.User.ArmorMods.ContainsKey(x.ModKey.FileName)
                     && x.Mod.Armors.Count > 0)
                     && !(x.Mod.Outfits != null
                     && x.Mod.Outfits.Any(o => o.EditorID.EndsWith(Settings.Patcher.OutfitSuffix)
@@ -116,7 +116,7 @@ namespace Code.OutfitPatcher.Managers
                 List<TArmor> jewelries = new();
                 loadOrderList.Add(mod.ModKey.FileName + " = " + modLoadOrder);
 
-                var modsCategories = SynPoint.Settings.User.ArmorMods[mod.ModKey.FileName].Distinct().ToList();
+                var modsCategories = SynPatch.Settings.User.ArmorMods[mod.ModKey.FileName].Distinct().ToList();
                 modsCategories.Remove("Generic");
 
                 mod.Armors
@@ -149,7 +149,7 @@ namespace Code.OutfitPatcher.Managers
                 var tt = 0;
 
                 var commanName = 0;
-                if (bodyCount > 5 && SynPoint.Settings.User.ArmorMods[mod.ModKey.FileName].Contains("Generic"))
+                if (bodyCount > 5 && SynPatch.Settings.User.ArmorMods[mod.ModKey.FileName].Contains("Generic"))
                     commanName = HelperUtils.GetCommonItems(others.Select(x => HelperUtils.SplitString(x.Name)).ToList())
                                .Where(x => !x.IsNullOrEmpty()).Count();
 
@@ -182,7 +182,7 @@ namespace Code.OutfitPatcher.Managers
 
                         // Creating weapons sets
                         IEnumerable<TWeapon> matchingWeapons = null;
-                        if (SynPoint.Settings.User.DistributeWeapons && weapons.Any())
+                        if (SynPatch.Settings.User.DistributeWeapons && weapons.Any())
                             matchingWeapons = WeaponUtils.GetMatchingWeapons(bArmor, weapons);
 
                         // Creating armor sets
@@ -260,14 +260,14 @@ namespace Code.OutfitPatcher.Managers
 
         private void ResolveOutfitOverrides()
         {
-            if (!SynPoint.Settings.User.ResolveOutfitConflicts) return;
+            if (!SynPatch.Settings.User.ResolveOutfitConflicts) return;
             Console.WriteLine("\nResolving outfit armor mods conflicts...");
 
             Patch = FileUtils.GetIncrementedMod(Patch, true);
             var outfitContext = State.LoadOrder.PriorityOrder.Outfit()
                .WinningContextOverrides();
             foreach (var outfit in State.LoadOrder.PriorityOrder
-                .Where(x => SynPoint.Settings.User.ArmorMods.ContainsKey(x.ModKey.FileName.String))
+                .Where(x => SynPatch.Settings.User.ArmorMods.ContainsKey(x.ModKey.FileName.String))
                 .WinningOverrides<IOutfitGetter>())
             {
                 var winningOtfts = outfitContext.Where(c => c.Record.FormKey == outfit.FormKey).EmptyIfNull();
@@ -277,16 +277,16 @@ namespace Code.OutfitPatcher.Managers
                     var winningOtft = winningOtfts.First().Record;
 
                     // Merging outfit's lvls from the armor mods together
-                    var context = SynPoint.Settings.Cache.ResolveAllContexts<IOutfit, IOutfitGetter>(winningOtft.FormKey).ToList();
-                    var overridenOtfts = context.Where(c => SynPoint.Settings.User.ArmorMods.ContainsKey(c.ModKey.FileName.String)).ToList();
-                    var lastNonModOutfit = context.Where(c => !SynPoint.Settings.User.ArmorMods.ContainsKey(c.ModKey.FileName.String)).ToList();
+                    var context = SynPatch.Settings.Cache.ResolveAllContexts<IOutfit, IOutfitGetter>(winningOtft.FormKey).ToList();
+                    var overridenOtfts = context.Where(c => SynPatch.Settings.User.ArmorMods.ContainsKey(c.ModKey.FileName.String)).ToList();
+                    var lastNonModOutfit = context.Where(c => !SynPatch.Settings.User.ArmorMods.ContainsKey(c.ModKey.FileName.String)).ToList();
 
                     if (overridenOtfts.Count > 0 && lastNonModOutfit.Count > 1)
                     {
                         // Reverting Overridden outfit by armor mods added in the patcher
                         overridenOtfts.ForEach(r =>
                         {
-                            var items = r.Record.Items.Select(x => SynPoint.Settings.Cache.Resolve<IItemGetter>(x.FormKey));
+                            var items = r.Record.Items.Select(x => SynPatch.Settings.Cache.Resolve<IItemGetter>(x.FormKey));
                             if (items.Count() == 1)
                             {
                                 oLLs.Add(items.First());
@@ -302,7 +302,7 @@ namespace Code.OutfitPatcher.Managers
                         // Getting outfit records form armor mods added in the patcher and patching those
                         Patch = FileUtils.GetIncrementedMod(Patch);
                         Outfit nOutfit = Patch.Outfits.GetOrAddAsOverride(lastNonModOutfit.First().Record);
-                        var items = nOutfit.Items.Select(x => SynPoint.Settings.Cache.Resolve<IItemGetter>(x.FormKey));
+                        var items = nOutfit.Items.Select(x => SynPatch.Settings.Cache.Resolve<IItemGetter>(x.FormKey));
                         if (items.Count() == 1)
                         {
                             oLLs.Add(items.First());
@@ -316,7 +316,7 @@ namespace Code.OutfitPatcher.Managers
 
                         // Creating patched outfit
                         Patch = FileUtils.GetIncrementedMod(Patch);
-                        LeveledItem sLL = LeveledListUtils.CreateLeveledList(Patch, oLLs.Distinct(), "sll_" + outfit.EditorID, 1, SynPoint.Settings.LeveledListFlag);
+                        LeveledItem sLL = LeveledListUtils.CreateLeveledList(Patch, oLLs.Distinct(), "sll_" + outfit.EditorID, 1, SynPatch.Settings.LeveledListFlag);
                         nOutfit.Items = new();
                         nOutfit.Items.Add(sLL);
                     }
@@ -326,7 +326,7 @@ namespace Code.OutfitPatcher.Managers
 
         private void CreateMannequinOutfits()
         {
-            if (SynPoint.Settings.User.AssignMannequinOutfits)
+            if (SynPatch.Settings.User.AssignMannequinOutfits)
             {
                 var category = GrouppedArmorSets.GetOrAdd("Mannequins", () => new TArmorGroup("Mannequins"));
                 GrouppedArmorSets.Where(x => !Regex.IsMatch(x.Key, "Children|Guards", RegexOptions.IgnoreCase))
@@ -337,7 +337,7 @@ namespace Code.OutfitPatcher.Managers
         private void CreateSPID()
         {
             Console.WriteLine("Creating SPID ini file for outfits...");
-            var percentage = SynPoint.Settings.User.OutfitDistributionPercentage;
+            var percentage = SynPatch.Settings.User.OutfitDistributionPercentage;
             var cache = State.LoadOrder.ToMutableLinkCache();
             var SPID = new List<string>();
 
@@ -355,9 +355,9 @@ namespace Code.OutfitPatcher.Managers
                         gender.Replace("NONE", "M+F").Replace("/U", ""), armorSets);
                     string line2 = String.Format("Outfit = 0x{0}~{1}|{2}|{3}|NONE|{4}|NONE|{5}",
                         outfit.ID.ToString("X"), outfit.ModKey.FileName, keywords, "NONE", gender, percentage);
-                    if (SynPoint.Settings.User.SkipGuardDistribution && pair.Key.StartsWith("Guards")) line2 = ";" + line2;
+                    if (SynPatch.Settings.User.SkipGuardDistribution && pair.Key.StartsWith("Guards")) line2 = ";" + line2;
                     if (armorSets < 1) line2 = ";" + line2;
-                    if (SynPoint.Settings.User.FilterUniqueNPC) SPID.Add(line2.Replace("/U|NONE", "|NONE"));
+                    if (SynPatch.Settings.User.FilterUniqueNPC) SPID.Add(line2.Replace("/U|NONE", "|NONE"));
                     SPID.Add(line1);
                     SPID.Add(line2);
                     SPID.Add(Environment.NewLine);
@@ -383,7 +383,7 @@ namespace Code.OutfitPatcher.Managers
 
         private void FilterGaurdOutfits()
         {
-            if (!SynPoint.Settings.User.SkipGuardDistribution) return;
+            if (!SynPatch.Settings.User.SkipGuardDistribution) return;
 
             Dictionary<FormKey, string> list = new();
             //GrouppedArmorSets.Where(x => x.Key.EndsWith("Armor") || x.Key.StartsWith("Guards") || x.Key.EndsWith("Race"))

@@ -1,4 +1,5 @@
 ﻿using Code.OutfitPatcher;
+using Code.OutfitPatcher.Config;
 using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Components.WebView.Maui;
@@ -14,8 +15,7 @@ using System.Reflection;
 namespace OutfitPatcher;
 
 public static class MauiProgram
-{
-	
+{	
 	public static MauiApp CreateMauiApp()
 	{
         // Init logger
@@ -39,7 +39,8 @@ public static class MauiProgram
         builder.Services.AddScoped<NotificationService>();
         builder.Services.AddScoped<TooltipService>();
         builder.Services.AddScoped<ContextMenuService>();
-		builder.Services.AddSingleton<SynPoint>();
+		builder.Services.AddSingleton<SynPatch>();
+
 
         return builder.Build();
 	}
